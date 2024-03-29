@@ -373,10 +373,13 @@ button:hover {
 }
 
 
-.form-control:focus, .btn:focus, .btn:active, .btn:focus-within {
+.form-control:focus,
+.btn:focus,
+.btn:active,
+.btn:focus-within {
   outline: 0;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -384,9 +387,32 @@ button:hover {
   .section-header {
     height: 27rem;
   }
-  
-  .text-reponse{
+
+  .text-reponse {
     margin-top: -14rem;
     margin-bottom: -47px;
   }
+}
+
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #202225;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2e2f33;
+  border-radius: 5px;
+  border: 2px solid #202225;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #3b3c42;
+}
+
+::-webkit-scrollbar-corner {
+  background: #202225;
 }
