@@ -11,10 +11,8 @@ body {
 }
 
 .timeline-carousel {
-  background-color: #0a1428b4;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  /* padding: 16px 6.9444% 90px 6.9444%; */
   padding: 16px;
   position: relative;
   overflow: hidden;
