@@ -98,6 +98,7 @@ async function getRandomQuote(){
     "Será que a Bugsoft vai deixar você perguntar?😝",
     "Pergunta lá no Posto Ipironga ahahah 😂",
     "Irineu, você não sabe.. nem eu! 😝",
+    "Chama a Pats pra jogar com você! 😍",
   ]
 
   const randomIndex = Math.floor(Math.random() * quotes.length);
