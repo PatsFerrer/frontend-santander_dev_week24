@@ -24,20 +24,55 @@ const apiService = {
 
     const response = await fetch(route, options)
     return await response.json();
-   }
+  }
 };
 
+const state = {
+  values: {
+    champions: [],
+  },
+  views: {
+    response: document.querySelector(".text-reponse"),
+    question: document.querySelector("#text-request"),
+    avatar: document.getElementById("avatar"),
+    carousel: document.getElementById("carousel-cards-content")
+  }
+}
+
 async function main() {
-  
-  // ✅ 1. chamada pra API
-  const data = await apiService.postAskChampion(1, "me diga como pedir minha namorada em namoro")
-  console.log(data);
+  await loadChampions();
+  await renderChampions();
 
-  //2. guardar dados de personagens
-  //3. renderizar personagens na tela
   //4. resetar a tela
-
   await loadCarrousel();
+}
+
+async function loadChampions() {
+  const data = await apiService.getChampions();
+  state.values.champions = data;
+}
+
+async function renderChampions() {
+  //3. renderizar personagens na tela
+  const championsData = state.values.champions;
+  const elements = championsData.map((character) => 
+    `<div class="timeline-carousel__item">
+    <div class="timeline-carousel__image">
+      <div class="media-wrapper media-wrapper--overlay"
+        style="background: url('${character.imageUrl}') center center; background-size:cover;">
+      </div>
+    </div>
+    <div class="timeline-carousel__item-inner">
+      <span class="name">${character.name}</span>
+      <span class="role">${character.role}</span>
+      <p>${character.lore}</p>
+    </div>
+  </div>`
+  );
+
+  console.log(elements)
+
+  state.views.carousel.innerHTML = elements.join(" ");
 }
 
 async function loadCarrousel() {
