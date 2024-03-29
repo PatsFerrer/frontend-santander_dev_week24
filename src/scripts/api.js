@@ -43,7 +43,6 @@ async function main() {
   await loadChampions();
   await renderChampions();
 
-  //4. resetar a tela
   await loadCarrousel();
 }
 
@@ -53,10 +52,9 @@ async function loadChampions() {
 }
 
 async function renderChampions() {
-  //3. renderizar personagens na tela
   const championsData = state.values.champions;
   const elements = championsData.map((character) => 
-    `<div class="timeline-carousel__item">
+    `<div class="timeline-carousel__item" onclick="onChangeChampionSelected(${character.id}, '${character.imageUrl}')">
     <div class="timeline-carousel__image">
       <div class="media-wrapper media-wrapper--overlay"
         style="background: url('${character.imageUrl}') center center; background-size:cover;">
@@ -70,9 +68,44 @@ async function renderChampions() {
   </div>`
   );
 
-  console.log(elements)
-
   state.views.carousel.innerHTML = elements.join(" ");
+}
+
+async function onChangeChampionSelected(id, imageUrl){
+  //1 trocar imagem de fundo da bolinha
+  state.views.avatar.style.backgroundImage = `url(${imageUrl})`;
+  //2 guardar id  selecionado
+  state.views.avatar.dataset.id = id;
+  //3 reset do formulario
+  await resetForm();
+}
+
+async function resetForm(){
+  state.views.question.value = "";
+  state.views.response.textContent = await getRandomQuote();
+}
+
+async function getRandomQuote(){
+  const quotes = [
+    // get phrses of champions of league of legends
+    "Manda ver meu nobre! 🫡",
+    "Pode vir quente que eu tô fervendo... 😎",
+    "Aguardo sua pergunta, buddy! 🙂",
+    "Espero ansiosamente pela sua pergunta. 😁",
+    "Estou começando a fica com tédio... 🥱",
+    "Tenho vidas a salvar, vá depressa com isso... 😪",
+    "Não vai ficar aí o dia todo, vai? 🤨",
+    "Talvez seja melhor ir jogar Fortnite... 😜",
+    "Ainda tô tentando entender como essa geringonça funciona.🤔",
+    "Vamo que vamo, meu chapa! 🤣",
+    "Será que a Bugsoft vai deixar você perguntar?😝",
+    "Pergunta lá no Posto Ipironga ahahah 😂",
+    "Irineu, você não sabe.. nem eu! 😝",
+  ]
+
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+
+  return quotes[randomIndex];
 }
 
 async function loadCarrousel() {
