@@ -14,12 +14,10 @@ const apiService = {
 
     const options = {
       method: "POST",
-      header: {
+      headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        question: message
-      })
+      body: JSON.stringify({question: message})
     };
 
     const response = await fetch(route, options)
@@ -87,7 +85,6 @@ async function resetForm(){
 
 async function getRandomQuote(){
   const quotes = [
-    // get phrses of champions of league of legends
     "Manda ver meu nobre! 🫡",
     "Pode vir quente que eu tô fervendo... 😎",
     "Aguardo sua pergunta, buddy! 🙂",
@@ -106,6 +103,18 @@ async function getRandomQuote(){
   const randomIndex = Math.floor(Math.random() * quotes.length);
 
   return quotes[randomIndex];
+}
+
+async function fetchAskChampion(){
+  document.body.style.cursor = "wait";
+  
+  const id = state.views.avatar.dataset.id;
+  const message = state.views.question.value;
+  
+  const response = await apiService.postAskChampion(id, message);
+  
+  state.views.response.textContent = response.answer;
+  document.body.style.cursor = "default";
 }
 
 async function loadCarrousel() {
